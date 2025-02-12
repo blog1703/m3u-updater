@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# URL источника M3U файла
-SOURCE_URL="https://iptvshared.ucoz.net/IPTV_SHARED.m3u"
+# URL источника m3u
+M3U_SOURCE="https://iptvshared.ucoz.net/IPTV_SHARED.m3u"
 
 # Имя файла для сохранения
 M3U_FILE="playlist.m3u"
