@@ -6,6 +6,9 @@ SOURCE_URL="https://iptvshared.ucoz.net/IPTV_SHARED.m3u"
 # Путь, куда сохранять обновленный файл
 DESTINATION_PATH="iptv.m3u"
 
+# Локальный плейлист
+LOCAL_PLAYLIST="local_playlist.m3u"
+
 # Временный файл для обработки
 TEMP_FILE="temp.m3u"
 
@@ -17,22 +20,25 @@ wget -O $TEMP_FILE $SOURCE_URL
 
 # Проверка успешности загрузки
 if [ $? -eq 0 ]; then
-  echo "Файл успешно загружен."
+  echo "Файл успешно загружен." >> iptv_update.log
 
-  # Удаляем категории Adult и 18+
-  grep -ivE "group-title=.*(Adult|18\+|Взрослые|ИНФО)" $TEMP_FILE > $DESTINATION_PATH
+  # Удаляем категории Adult, 18+ и МояКатегория
+  grep -ivE "group-title=.*(Adult|18\+|Взрослые|ИНФО)" $TEMP_FILE > filtered_playlist.m3u
+
+  # Объединяем основной и локальный плейлисты
+  cat filtered_playlist.m3u $LOCAL_PLAYLIST > $DESTINATION_PATH
 
   # Проверяем, что файл не пустой
   if [ -s $DESTINATION_PATH ]; then
-    echo "Категории Adult и 18+ удалены."
+    echo "Плейлист успешно обновлен и объединен с локальным." >> iptv_update.log
   else
-    echo "Ошибка: Отфильтрованный файл пуст."
+    echo "Ошибка: Файл пуст после объединения." >> iptv_update.log
     exit 1
   fi
 else
-  echo "Ошибка загрузки файла."
+  echo "Ошибка загрузки файла." >> iptv_update.log
   exit 1
 fi
 
 # Удаляем временный файл
-rm -f $TEMP_FILE
+rm -f $TEMP_FILE filtered_playlist.m3u
