@@ -21,22 +21,32 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Make script executable
-        run: chmod +x update_m3u.sh  # Делаем файл исполняемым
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-cache-
 
-      - name: Update M3U file
-        run: bash update_m3u.sh  # Запускаем скрипт
+      - name: Install wget
+        run: sudo apt-get install -y wget
+
+      - name: Run update_iptv.sh
+        run: bash update_iptv.sh
 
       - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Используем встроенный токен
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add .
-          git commit -m "Automated M3U file update"
-          git push
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add iptv.m3u iptv_update.log
+          git commit -m "Automated update of IPTV M3U file"
+          git push "https://$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
