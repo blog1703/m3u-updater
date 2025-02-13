@@ -21,25 +21,15 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Cache dependencies
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache
-          key: ${{ runner.os }}-cache-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-cache-
+      - name: Make script executable
+        run: chmod +x update_m3u.sh  # Делаем файл исполняемым
 
-      - name: Install wget
-        run: sudo apt-get install -y wget
-
-      - name: Run update_iptv.sh
-        run: bash update_iptv.sh
+      - name: Update M3U file
+        run: bash update_m3u.sh  # Запускаем скрипт
 
       - name: Commit and push changes
         env:
