@@ -13,7 +13,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   schedule:
-    - cron: '0 10 * * *'
+    - cron: '0 8 * * *'
 permissions:
   contents: write
 
@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: blog1703/m3u-updater
-          token: ${{ tokeniptv }}  # Токен для доступа к приватному репозиторию
+          token: ${{ secrets.tokeniptv }}  # Токен для доступа к приватному репозиторию
 
       - name: Install wget
         run: sudo apt-get install -y wget
