@@ -23,6 +23,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug secrets
+        run: |
+          echo "PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}"
+
       - name: Checkout private repository
         uses: actions/checkout@v3
         with:
@@ -43,9 +47,9 @@ jobs:
         run: bash update_iptv.sh
 
       - name: Checkout public repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
-          repository: blog1703/public-repo
+          repository: blog1703/iptv-public
           path: public-repo
           token: ${{ secrets.PUBLIC_REPO_TOKEN }}  # Токен для доступа к публичному репозиторию
 
