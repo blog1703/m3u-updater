@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: blog1703/m3u-updater
-          token: ${{ secrets.PRIVATE_REPO_TOKEN }}  # Токен для доступа к приватному репозиторию
+          token: ${{ tokeniptv }}  # Токен для доступа к приватному репозиторию
 
       - name: Install wget
         run: sudo apt-get install -y wget
