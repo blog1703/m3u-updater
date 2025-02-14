@@ -34,6 +34,7 @@ jobs:
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Используем встроенный токен
+          publish_dir: ./tv/tree/main  # Укажите папку с M3U файлом
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
