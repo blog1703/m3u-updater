@@ -27,7 +27,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: blog1703/m3u-updater
-          token: ${{ secrets.tokeniptv }}  # Токен для доступа к приватному репозиторию
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}  # Указываем токен
+          ssh-strict: true
+          persist-credentials: true
+          clean: true
+          fetch-depth: 1
+          lfs: false
+          submodules: false
+          set-safe-directory: true
 
       - name: Install wget
         run: sudo apt-get install -y wget
@@ -40,7 +47,7 @@ jobs:
         with:
           repository: blog1703/public-repo
           path: public-repo
-          token: ${{ secrets.PUBLIC_REPO_TOKEN }}   # Токен для доступа к публичному репозиторию
+          token: ${{ secrets.PUBLIC_REPO_TOKEN }}  # Токен для доступа к публичному репозиторию
 
       - name: Copy M3U file to public repository
         run: |
@@ -56,5 +63,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.PUBLIC_REPO_TOKEN }}
-          publish_dir: ./tv
+          publish_dir: ./public-repo
           keep_files: false
