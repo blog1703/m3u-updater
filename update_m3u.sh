@@ -25,6 +25,11 @@ if [ $? -eq 0 ]; then
   # Удаляем категории Adult, 18+ и МояКатегория
   grep -ivE "group-title=.*(Adult|18\+|Взрослые|ИНФО)" $TEMP_FILE > filtered_playlist.m3u
 
+  # Добавляем дату обновления в локальный плейлист
+  echo "#EXTM3U" > updated_local_playlist.m3u
+  echo "# Last updated: $(date)" >> updated_local_playlist.m3u
+  cat $LOCAL_PLAYLIST >> updated_local_playlist.m3u
+
   # Объединяем основной и локальный плейлисты
   cat filtered_playlist.m3u $LOCAL_PLAYLIST > $DESTINATION_PATH
 
