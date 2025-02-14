@@ -31,7 +31,7 @@ if [ $? -eq 0 ]; then
   cat $LOCAL_PLAYLIST >> updated_local_playlist.m3u
 
   # Объединяем основной и локальный плейлисты
-  cat filtered_playlist.m3u updated_local_playlist.m3u > $DESTINATION_PATH
+  cat filtered_playlist.m3u updated_local_playlist.m3u $LOCAL_PLAYLIST > $DESTINATION_PATH
 
   # Проверяем, что файл не пустой
   if [ -s $DESTINATION_PATH ]; then
