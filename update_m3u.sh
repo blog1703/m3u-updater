@@ -25,10 +25,17 @@ if [ $? -eq 0 ]; then
   # Удаляем категории Adult, 18+ и МояКатегория
   grep -ivE "group-title=.*(Adult|18\+|ИНФО)" $TEMP_FILE > filtered_playlist.m3u
 
-  # Добавляем дату обновления в локальный плейлист
-  echo "#EXTINF" > updated_local_playlist.m3u
-  echo "# Last updated: $(date)" >> updated_local_playlist.m3u
-  cat $LOCAL_PLAYLIST >> updated_local_playlist.m3u
+# Обрабатываем каждую строку плейлиста
+while IFS= read -r line; do
+  if [[ $line == *"#EXTINF"* ]]; then
+    # Добавляем дату обновления к названию канала
+    echo "${line} (Обновлено: $(date +'%Y-%m-%d %H:%M:%S'))" >> updated_local_playlist.m3u
+  else
+    echo "$line" >> updated_local_playlist.m3u
+  fi
+done < "$LOCAL_PLAYLIST"
+
+echo "Плейлист обновлен. Дата добавлена в названия каналов."
 
   # Объединяем основной и локальный плейлисты
   cat filtered_playlist.m3u updated_local_playlist.m3u > $DESTINATION_PATH
