@@ -40,7 +40,7 @@ jobs:
         with:
           repository: blog1703/public-repo
           path: public-repo
-          token: ${{ secrets.PUBLIC_REPO_TOKEN }}  # Токен для доступа к публичному репозиторию
+          token: ${{ secrets.PUBLIC_REPO_TOKEN }}   # Токен для доступа к публичному репозиторию
 
       - name: Copy M3U file to public repository
         run: |
