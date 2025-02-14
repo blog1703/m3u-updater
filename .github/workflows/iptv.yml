@@ -28,7 +28,7 @@ jobs:
           echo "PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}"
 
       - name: Checkout private repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           repository: blog1703/m3u-updater
           token: ${{ secrets.PRIVATE_REPO_TOKEN }}  # Указываем токен
@@ -47,7 +47,7 @@ jobs:
         run: bash update_iptv.sh
 
       - name: Checkout public repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           repository: blog1703/iptv-public
           path: public-repo
