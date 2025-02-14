@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: blog1703/m3u-updater
-          token: ${{ secrets.PRIVATE_REPO_TOKEN }}  # Указываем токен
+          token: ${{ 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 }}  # Указываем токен
           ssh-strict: true
           persist-credentials: true
           clean: true
