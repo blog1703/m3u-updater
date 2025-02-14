@@ -26,7 +26,7 @@ if [ $? -eq 0 ]; then
   grep -ivE "group-title=.*(Adult|18\+|ИНФО)" $TEMP_FILE > filtered_playlist.m3u
 
   # Добавляем дату обновления в локальный плейлист
-  echo "#EXTINF:-1 tvg-id="no_epg" tvg-logo="https://raw.githubusercontent.com/blog1703/tvonline/refs/heads/main/logo.png" group-title="INFO" > updated_local_playlist.m3u
+  echo "#EXTINF" > updated_local_playlist.m3u
   echo "# Last updated: $(date)" >> updated_local_playlist.m3u
   cat $LOCAL_PLAYLIST >> updated_local_playlist.m3u
 
