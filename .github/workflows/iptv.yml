@@ -35,7 +35,7 @@ jobs:
       - name: Run update_iptv.sh
         run: bash update_iptv.sh
 
-      - name: Checkout public repository
+      - name: Checkout this repo
         uses: actions/checkout@v2
         with:
           repository: blog1703/tv
