@@ -23,7 +23,7 @@ if [ $? -eq 0 ]; then
   echo "Файл успешно загружен." >> iptv_update.log
 
   # Удаляем категории Adult, 18+ и МояКатегория
-  grep -ivE "group-title=.*(Adult|18\+|Взрослые|ИНФО)" $TEMP_FILE > filtered_playlist.m3u
+  grep -ivE "group-title=.*(Adult|18\+|ИНФО)" $TEMP_FILE > filtered_playlist.m3u
 
   # Добавляем дату обновления в локальный плейлист
   echo "#EXTM3U" > updated_local_playlist.m3u
@@ -31,7 +31,7 @@ if [ $? -eq 0 ]; then
   cat $LOCAL_PLAYLIST >> updated_local_playlist.m3u
 
   # Объединяем основной и локальный плейлисты
-  cat filtered_playlist.m3u updated_local_playlist.m3u $LOCAL_PLAYLIST > $DESTINATION_PATH
+  cat filtered_playlist.m3u updated_local_playlist.m3u > $DESTINATION_PATH
 
   # Проверяем, что файл не пустой
   if [ -s $DESTINATION_PATH ]; then
