@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Checkout private repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: blog1703/m3u-updater
           token: ${{ secrets.PRIVATE_REPO_TOKEN }}  # Указываем токен
